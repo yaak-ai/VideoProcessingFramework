@@ -70,18 +70,10 @@ endif(GENERATE_PYTORCH_EXTENSION)
 
 if(GENERATE_OPENCV_EXTENSION)
 
-	find_package( OpenCV REQUIRED )
-	include_directories( ${OpenCV_INCLUDE_DIRS} )
-
-	message(STATUS "OpenCV include dirs ${OpenCV_INCLUDE_DIRS}" )
-
 	#Extension will be built using https://github.com/opencv/opencv/blob/modules/core/src/cuda/gpu_mat.cu
 	#And https://github.com/opencv/opencv/blob/modules/core/include/opencv2/core/cuda.hpp
-	#So we just launch python script;
-	add_custom_command(	OUTPUT OpenCV_Nv_Codec
-						COMMAND cd ${OPENCV_EXTENSION_SOURCES_DIR} && python setup.py build_ext --build-lib="${CMAKE_INSTALL_PREFIX}/bin" --include-dirs=${OpenCV_INCLUDE_DIRS})
 
-	add_custom_target(	OpenCVNvCodec
-						DEPENDS OpenCV_Nv_Codec)
-	add_dependencies(PyNvCodec OpenCVNvCodec)
+	install(FILES $<TARGET_FILE:OpenCVNvCodec>									DESTINATION bin)
+	install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/SampleOpenCV.py				DESTINATION bin)
+
 endif(GENERATE_OPENCV_EXTENSION)
