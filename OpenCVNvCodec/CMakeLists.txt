@@ -40,7 +40,6 @@ if(GENERATE_PYTHON_BINDINGS)
 	if(PYTHONLIBS_FOUND)
 
 		#Add target;
-		message(STATUS "OpenCVNvCodec source files ${PYOPENCVNVCODEC_SOURCES}")
 		pybind11_add_module(OpenCVNvCodec SHARED ${PYOPENCVNVCODEC_SOURCES})
 		set_property(TARGET OpenCVNvCodec PROPERTY CXX_STANDARD 14)
 
